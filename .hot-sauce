@@ -1,10 +1,11 @@
 ######################
-# Enable zsh and setup oh-my-zsh
-######################
-chsh -s $(which zsh)
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-######################
 # Install ellipsis
 ######################
-curl ellipsis.sh | PACKAGES='adambrgmn/dotfiles' sh
+if [[ $(cli_is_installed 'ellipsis') == 0 ]]; then
+  echo_install "Installing ellipsis"
+  curl ellipsis.sh | PACKAGES='adambrgmn/dotfiles' sh
+  print_in_green "${bold}✓ installed!${normal}\n"
+else
+  print_success_muted "ellipsis already installed. Updating instead."
+  ellipsis pull
+fi
