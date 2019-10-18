@@ -102,10 +102,15 @@ fi
 # -----------------------------------------------------------------------------
 # NVM
 # -----------------------------------------------------------------------------
-if [ -x nvm ]; then
+if ! [ -e $NVM_DIR ]; then
 	step "Installing NVM…"
+	touch ~/.bash_profile
 	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 	print_success "NVM installed!"
+	
 	step "Installing latest Node…"
 	nvm install node
 	nvm use node
@@ -212,9 +217,9 @@ fi
 # OPTIONAL: Customizations
 ###############################################################################
 chapter "Adding hot sauce…"
-if [ -f "$HOME/.hot-sauce" ]; then
+if [ -f ".hot-sauce" ]; then
 	if ask "Do you want to add hot sauce?" Y; then
-		. "$HOME/.hot-sauce"; printf "\n  You got hot sauce in your bag. 🔥 ${bold}Swag.${normal}\n";
+		. ".hot-sauce"; printf "\n  You got hot sauce in your bag. 🔥 ${bold}Swag.${normal}\n";
 	else
 		print_success_muted "Hot sauce declined. Skipped.";
 	fi

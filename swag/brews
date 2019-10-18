@@ -1,9 +1,10 @@
-asciinema
+bat
 git
-tig
-mas
-wget
 hub
 hugo
-yarn
+mas
 rbenv
+watchman
+wget
+yarn
+zsh
